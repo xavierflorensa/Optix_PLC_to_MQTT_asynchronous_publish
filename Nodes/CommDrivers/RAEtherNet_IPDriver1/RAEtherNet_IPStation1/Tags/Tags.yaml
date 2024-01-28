@@ -1,0 +1,25 @@
+Name: Tags
+Type: FolderType
+Children:
+- Name: Controller Tags
+  Type: TagStructure
+  DataType: Structure
+  Value: 
+   {
+    "Type": 22,
+    "Body": {
+     "TypeId": {
+      "Id": 22
+     }
+    }
+   }
+  Children:
+  - Name: IoT_data
+    Type: RAEtherNetIPTag
+    DataType: Int32
+    Value: 0
+    Children:
+    - Name: SymbolName
+      Type: BaseDataVariableType
+      DataType: String
+      Value: "IoT_data"
