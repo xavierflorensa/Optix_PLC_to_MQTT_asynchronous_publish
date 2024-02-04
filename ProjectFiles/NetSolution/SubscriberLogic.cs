@@ -26,7 +26,7 @@ public class SubscriberLogic : BaseNetLogic
         // Assign a callback to be executed when a message is received from the broker
         subscribeClient.MqttMsgPublishReceived += SubscribeClientMqttMsgPublishReceived;
         // Subscribe to the "my_topic" topic with QoS 2
-        ushort msgId = subscribeClient.Subscribe(new string[] { "/my_topic" }, // topic
+        ushort msgId = subscribeClient.Subscribe(new string[] { "/my_new_topic" }, // topic
             new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE }); // QoS level
 
         messageVariable = Project.Current.GetVariable("Model/Message");
