@@ -6,6 +6,9 @@
 
 [3.	Asynchronous publish](#_toc157947309)
 
+You can see the final result here
+<https://youtu.be/4C3tAHiFN1I>
+
 # <a name="_toc157245591"></a>1. Configuring an application as an MQTT client
 
 This example is using a cloud public broker like test.mosquitto.org
@@ -362,4 +365,5 @@ You can find the code here
 
 <https://github.com/xavierflorensa/Optix_PLC_to_MQTT_asynchronous_publish>
 
-
+You can see the final result here
+<https://youtu.be/4C3tAHiFN1I>
