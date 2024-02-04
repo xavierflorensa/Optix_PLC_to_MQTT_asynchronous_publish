@@ -258,7 +258,7 @@ You can find the code here
 
 <https://github.com/xavierflorensa/PLC2MQTTClient_HiveMQ_v1_Git>
 
-# Asyncrhonous Publish
+# 3.1 Asyncrhonous Publish
 
 You may want to publish to MQTT broker each time you modify the PLC variable
 
@@ -345,9 +345,7 @@ Test the application
 
 Changing the value from PLC or from Optix
 
-![A screenshot of a computer
-
-Description automatically generated](Aspose.Words.a01b5d69-7112-47d4-9db7-d09b87ae33cf.054.png)
+![Aspose Words a01b5d69-7112-47d4-9db7-d09b87ae33cf 054](https://github.com/xavierflorensa/Optix_PLC_to_MQTT_asynchronous_publish/assets/55208134/6e7f8cfb-2243-4219-bbdc-e780cfdafc45)
 
 But what happens when you change the PLC value from your MQTT client as a mobile phone,
 
@@ -355,9 +353,7 @@ The value is published twice, first time from mobile phone and second time from 
 
 This way, change the value from mobile phone MQTT client app
 
-![A screenshot of a computer
-
-Description automatically generated](Aspose.Words.a01b5d69-7112-47d4-9db7-d09b87ae33cf.055.png)
+![Aspose Words a01b5d69-7112-47d4-9db7-d09b87ae33cf 055](https://github.com/xavierflorensa/Optix_PLC_to_MQTT_asynchronous_publish/assets/55208134/ffdb4415-8612-4dff-847f-59519cf0ca41)
 
 This may be corrected from C#, but this will be done some other day…
 
