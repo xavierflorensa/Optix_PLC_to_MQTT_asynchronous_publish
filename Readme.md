@@ -4,6 +4,7 @@
 
 [2.	PLC data and MQTT](#_toc157245592)
 
+[3.	Asynchronous publish	31](#_toc157947309)
 
 # <a name="_toc157245591"></a>1. Configuring an application as an MQTT client
 
@@ -257,6 +258,8 @@ As you can see on this video
 You can find the code here
 
 <https://github.com/xavierflorensa/PLC2MQTTClient_HiveMQ_v1_Git>
+
+# <a name="_toc157885447"></a><a name="_toc157947309"></a>Asynchronous publish
 
 # 3.1 Asyncrhonous Publish
 
