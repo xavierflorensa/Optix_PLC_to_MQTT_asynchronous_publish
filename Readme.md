@@ -258,3 +258,153 @@ You can find the code here
 
 <https://github.com/xavierflorensa/PLC2MQTTClient_HiveMQ_v1_Git>
 
+# Asyncrhonous Publish
+
+You may want to publish to MQTT broker each time you modify the PLC variable
+
+You can do it with a callback function that executes a publish when Variable1 is modified.
+
+This way
+
+On same project delete the publish button 
+
+Copy the publish method code and insert it on a publish function
+
+Also change the topic name from /my\_topic to /my\_new\_topic
+
+So use this code on the publisher side
+
+#region StandardUsing
+
+using System;
+
+using FTOptix.CoreBase;
+
+using FTOptix.HMIProject;
+
+using UAManagedCore;
+
+using OpcUa = UAManagedCore.OpcUa;
+
+using FTOptix.NetLogic;
+
+using FTOptix.UI;
+
+using FTOptix.OPCUAServer;
+
+#endregion
+
+using uPLibrary.Networking.M2Mqtt;
+
+using uPLibrary.Networking.M2Mqtt.Messages;
+
+using FTOptix.RAEtherNetIP;
+
+using FTOptix.CommunicationDriver;
+
+public class PublisherLogic : BaseNetLogic
+
+{
+
+`    `private IUAVariable variable1;
+
+`    `public override void Start()
+
+`    `{
+
+`        `var brokerIpAddressVariable = Project.Current.GetVariable("Model/BrokerIpAddress");
+
+`        `// Create a client connecting to the broker (default port is 1883)
+
+`        `publishClient = new MqttClient(brokerIpAddressVariable.Value);
+
+`        `// Connect to the broker
+
+`        `publishClient.Connect("FTOptixPublishClient");
+
+`        `// Assign a callback to be executed when a message is published to the broker
+
+`        `publishClient.MqttMsgPublished += PublishClientMqttMsgPublished;
+
+`        `variable1 = Project.Current.GetVariable("Model/Variable1");
+
+`        `//assing a callback function to be executed when the variable changes
+
+`        `variable1.VariableChange += variable1\_VariableChange;
+
+`    `}
+
+`    `public override void Stop()
+
+`    `{
+
+`        `publishClient.Disconnect();
+
+`        `publishClient.MqttMsgPublished -= PublishClientMqttMsgPublished;
+
+`        `variable1.VariableChange -= variable1\_VariableChange;
+
+`    `}
+
+`    `private void PublishClientMqttMsgPublished(object sender, MqttMsgPublishedEventArgs e)
+
+`    `{
+
+`        `Log.Info("Message " + e.MessageId + " - published = " + e.IsPublished);
+
+`    `}
+
+`    `private void variable1\_VariableChange(object sender, VariableChangeEventArgs e)
+
+`    `{
+
+`        `Log.Info("Variable has changed");
+
+`        `var variable1 = Project.Current.GetVariable("Model/Variable1");
+
+`        `//variable1.Value = new Random().Next(0, 101);
+
+`        `// Publish a message
+
+`        `ushort msgId = publishClient.Publish("/my\_new\_topic", // topic
+
+`            `System.Text.Encoding.UTF8.GetBytes(((int)variable1.Value).ToString()), // message body
+
+`            `MqttMsgBase.QOS\_LEVEL\_EXACTLY\_ONCE, // QoS level
+
+`            `false); // retained
+
+`    `}
+
+
+
+`    `private MqttClient publishClient;
+
+}
+
+
+Test the application
+
+Changing the value from PLC or from Optix
+
+![A screenshot of a computer
+
+Description automatically generated](Aspose.Words.a01b5d69-7112-47d4-9db7-d09b87ae33cf.054.png)
+
+But what happens when you change the PLC value from your MQTT client as a mobile phone,
+
+The value is published twice, first time from mobile phone and second time from Optix, since Optix subscribe script will publish everything that is received thru MQTT
+
+This way, change the value from mobile phone MQTT client app
+
+![A screenshot of a computer
+
+Description automatically generated](Aspose.Words.a01b5d69-7112-47d4-9db7-d09b87ae33cf.055.png)
+
+This may be corrected from C#, but this will be done some other day…
+
+You can find the code here
+
+<https://github.com/xavierflorensa/Optix_PLC_to_MQTT_asynchronous_publish>
+
+
